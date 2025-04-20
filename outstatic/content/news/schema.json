@@ -1,6 +1,13 @@
 {
-  "title": "News",
-  "slug": "news",
+  "title": "news",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "category": {
+      "description": "Category",
+      "required": true,
+      "fieldType": "Text",
+      "dataType": "string",
+      "title": "Category"
+    }
+  }
 }
