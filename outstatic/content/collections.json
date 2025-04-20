@@ -10,5 +10,11 @@
     "slug": "movies",
     "path": "outstatic/content/movies",
     "children": []
+  },
+  {
+    "title": "Videos",
+    "slug": "videos",
+    "path": "outstatic/content/videos",
+    "children": []
   }
 ]
