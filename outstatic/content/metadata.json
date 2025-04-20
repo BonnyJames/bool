@@ -1,0 +1,23 @@
+{
+  "commit": "",
+  "generated": "2025-04-20T22:41:02.556Z",
+  "metadata": [
+    {
+      "__outstatic": {
+        "commit": "",
+        "hash": "1631131674",
+        "path": "outstatic/content/news/test-news.mdx"
+      },
+      "author": {
+        "name": "Beaumaris",
+        "picture": "https://avatars.githubusercontent.com/u/48912096?v=4"
+      },
+      "category": "test",
+      "collection": "news",
+      "publishedAt": "2025-04-20T22:45:09.416Z",
+      "slug": "test-news",
+      "status": "published",
+      "title": "Test News"
+    }
+  ]
+}
