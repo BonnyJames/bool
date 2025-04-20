@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "title": "Collection(test)",
+    "slug": "collection-test",
+    "path": "outstatic/content/collection-test",
+    "children": []
+  }
+]
