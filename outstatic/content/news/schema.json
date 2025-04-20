@@ -1,6 +1,13 @@
 {
-  "title": "News",
-  "slug": "news",
+  "title": "news",
   "type": "object",
-  "properties": {}
+  "properties": {
+    "entertainment": {
+      "description": "Entertainment",
+      "required": false,
+      "fieldType": "Number",
+      "dataType": "number",
+      "title": "Entertainment"
+    }
+  }
 }
