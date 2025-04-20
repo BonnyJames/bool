@@ -1,0 +1,579 @@
+# Content Platform Project Plan
+
+## Project Overview
+Building a modern content platform using Next.js 14, Outstatic CMS, and Cloudflare's edge infrastructure. The platform will support Articles, Videos, and Movies content types with strong SEO optimization. We'll implement an intelligent partial build strategy to handle large amounts of content efficiently without a database.
+
+## Project Goals
+- Create a fast, SEO-optimized static content platform
+- Implement Outstatic CMS for content management
+- Use intelligent partial builds to update high-priority pages quickly
+- Deploy on Cloudflare Pages with R2 for media storage
+- Optimize for Core Web Vitals and search engine ranking
+- Integrate analytics and ad services
+
+## Milestones & Tasks
+
+### 1. Project Setup and Configuration
+- [ ] **1.1** Create GitHub repository
+  - [ ] Initialize with README.md
+  - [ ] Add .gitignore for Next.js projects
+  - [ ] Set up branch protection rules
+  - [ ] Configure issue templates
+- [x] **1.2** Initialize Next.js 14 project with TypeScript
+  - [x] Install Next.js 14 with TypeScript support
+  - [x] Configure ESLint with recommended rules
+  - [x] Set up Prettier for code formatting
+  - [x] Create base folder structure for app router
+    - [x] Set up `/src/app` directory
+    - [x] Create `/src/components` directory
+    - [x] Add `/src/lib` for utility functions
+    - [x] Establish `/src/types` for TypeScript types
+- [x] **1.3** Install and configure TailwindCSS
+  - [x] Install TailwindCSS and dependencies
+  - [x] Create tailwind.config.js with project theme
+  - [x] Set up global CSS file with Tailwind directives
+  - [x] Configure dark mode support
+  - [x] Add custom color scheme and typography
+- [x] **1.4** Configure local development environment
+  - [x] Set up scripts for different build types (full, priority, minimal)
+  - [ ] Create development workflow documentation
+  - [x] Configure environment variables for local testing
+  - [ ] Add debugging and logging tools
+  - [x] Create development data fixtures
+- [x] **1.5** Create environment variables schema
+  - [x] Create .env.example template
+  - [x] Set up .env.local for development
+  - [x] Add environment validation using zod
+  - [x] Document required environment variables
+- [x] **1.6** Set up project documentation
+  - [x] Create main README.md with project overview
+  - [x] Add development setup instructions
+  - [x] Document folder structure and conventions
+  - [x] Set up contribution guidelines
+
+### 2. Cloudflare R2 Setup
+- [ ] **2.1** Create Cloudflare R2 bucket for media storage
+  - [ ] Set up R2 bucket in Cloudflare dashboard
+  - [ ] Configure CORS settings for bucket
+  - [ ] Set up access policies
+  - [ ] Create API tokens for bucket access
+  - [ ] Document bucket configuration
+- [ ] **2.2** Configure Wrangler for local development
+  - [ ] Install Wrangler CLI
+  - [ ] Create `wrangler.toml` file
+    - [ ] Configure R2 bindings
+    - [ ] Set up environment variables
+    - [ ] Configure build settings
+  - [ ] Set up local R2 emulation
+  - [ ] Create development workflow documentation
+- [ ] **2.3** Implement basic R2 utilities
+  - [ ] Create helper functions for R2 operations
+  - [ ] Set up utility for generating signed URLs
+  - [ ] Add error handling and logging
+  - [ ] Create mock R2 service for testing
+
+### 3. Outstatic CMS Integration
+- [x] **3.1** Install Outstatic package
+  - [x] Add outstatic to package.json
+  - [x] Install required dependencies
+  - [x] Add outstatic CSS imports
+- [ ] **3.2** Create GitHub OAuth App for Outstatic authentication
+  - [ ] Register new OAuth app in GitHub
+  - [ ] Configure callback URLs
+  - [ ] Generate client secrets
+  - [ ] Set appropriate permissions
+  - [ ] Document OAuth setup process
+- [x] **3.3** Configure API routes for Outstatic
+  - [x] Create `/app/api/outstatic/[[...ost]]/route.ts`
+  - [x] Implement OutstaticApi handler
+  - [x] Set up proper error handling for API routes
+  - [x] Add request validation
+  - [x] Implement rate limiting for security
+- [x] **3.4** Create Outstatic dashboard
+  - [x] Create `/app/(cms)/layout.tsx`
+    - [x] Implement CMS-specific layout
+    - [x] Add authentication protection
+  - [x] Create `/app/(cms)/outstatic/[[...ost]]/page.tsx`
+    - [x] Configure Outstatic component
+    - [x] Implement authentication flow
+    - [x] Add loading states
+  - [ ] Test dashboard access and functionality
+- [x] **3.5** Configure environment variables for Outstatic
+  - [x] Set up `OST_GITHUB_ID` from OAuth app
+  - [x] Configure `OST_GITHUB_SECRET` securely
+  - [x] Generate and set `OST_TOKEN_SECRET` (random string)
+  - [x] Set `OST_REPO_SLUG` to GitHub repository name
+  - [x] Add optional variables like `OST_REPO_BRANCH` if needed
+- [ ] **3.6** Implement R2 integration for Outstatic
+  - [ ] Create media upload handler for Outstatic
+  - [ ] Add R2 storage adapter for images
+  - [ ] Configure media preview in Outstatic
+  - [ ] Set up image optimization during upload
+  - [ ] Test upload and retrieval functionality
+
+### 4. Intelligent Build System
+- [ ] **4.1** Configure Next.js for partial builds
+  - [ ] Set up `next.config.js` with conditional builds
+  - [ ] Add environment variables for build control
+  - [ ] Configure ISR settings for different content types
+  - [ ] Implement partial static path generation
+  - [ ] Create revalidation strategy
+- [ ] **4.2** Create build determination script
+  - [ ] Implement logic to detect changed content areas
+  - [ ] Add functionality to decide build type (full vs partial)
+  - [ ] Create helper functions to get affected content
+  - [ ] Add logging for build decisions
+  - [ ] Test with different change scenarios
+- [ ] **4.3** Implement media serving route
+  - [ ] Create `/app/media/[[...path]]/route.ts` handler
+    - [ ] Implement file retrieval from R2
+    - [ ] Set up proper content types
+    - [ ] Add caching headers
+    - [ ] Implement error handling
+  - [ ] Configure edge caching for assets
+  - [ ] Set up image compression and optimization
+- [ ] **4.4** Set up build automation
+  - [ ] Create npm scripts for different build types
+  - [ ] Add Cloudflare Pages build configuration
+  - [ ] Configure GitHub action for content organization
+  - [ ] Implement automated content archiving
+  - [ ] Test build pipelines
+
+### 5. Content Structure Implementation
+- [x] **5.1** Define content models for Outstatic
+  - [x] Articles content type
+    - [x] Define core fields (title, slug, date, author)
+    - [x] Add SEO fields (meta description, keywords)
+    - [x] Set up cover image field with validation
+    - [x] Configure content body with markdown support
+    - [x] Add categorization fields (tags, category)
+    - [x] Include priority field for build decisions
+  - [x] Videos content type
+    - [x] Define base fields (title, slug, date, author)
+    - [x] Add YouTube video ID field with validation
+    - [x] Create thumbnail/poster image field
+    - [x] Set up description field for content
+    - [x] Add duration and publish date fields
+  - [x] Movies content type
+    - [x] Create title and slug fields
+    - [x] Add director and cast fields
+    - [x] Set up release date and duration fields
+    - [x] Configure poster image field
+    - [x] Add YouTube video ID for trailer/full movie
+    - [x] Create synopsis and review fields
+- [x] **5.2** Implement authors/contributors model
+  - [x] Create author content type
+  - [x] Define author fields (name, bio, avatar)
+  - [x] Set up social media links
+  - [x] Add author role/title field
+  - [x] Create slugs for author pages
+- [ ] **5.3** Set up tags/categories taxonomy
+  - [ ] Define category structure
+  - [ ] Create tag collection for flexible tagging
+  - [ ] Implement category hierarchy if needed
+  - [ ] Set up validation for tags/categories
+  - [ ] Create relation between content and taxonomies
+- [ ] **5.4** Create content organization structure
+  - [ ] Set up `/outstatic/content/high-priority` for frequently updated content
+  - [ ] Add `/outstatic/content/categories` for category pages
+  - [ ] Create `/outstatic/content/recent-articles` for newest content
+  - [ ] Add `/outstatic/content/archive` for older content
+- [ ] **5.5** Create sample content for testing
+  - [ ] Add 3-5 sample articles with real content
+  - [ ] Create 2-3 video entries with working embeds
+  - [ ] Add 2-3 movie entries with complete metadata
+  - [ ] Set up test authors with profile information
+  - [ ] Create sample taxonomies with relationships
+
+### 6. Image Optimization
+- [ ] **6.1** Configure Next.js Image component with R2
+  - [ ] Create custom image loader for R2
+  - [ ] Configure next.config.js for image domains
+  - [ ] Set up image optimization parameters
+  - [ ] Create reusable Image component
+  - [ ] Test image loading performance
+- [ ] **6.2** Create image optimization pipeline
+  - [ ] Automatic responsive images
+    - [ ] Configure srcset generation
+    - [ ] Implement sizes attribute
+    - [ ] Test on different viewports
+  - [ ] WebP/AVIF conversion
+    - [ ] Configure format detection
+    - [ ] Set up format fallbacks
+    - [ ] Test browser compatibility
+  - [ ] Lazy loading implementation
+    - [ ] Add loading="lazy" for below-fold images
+    - [ ] Implement blur placeholders
+    - [ ] Use intersection observer for custom lazy loading
+  - [ ] Add image compression settings
+- [ ] **6.3** Implement image upload workflow for Outstatic
+  - [ ] Create R2 upload integration
+  - [ ] Add image preview functionality
+  - [ ] Implement image cropping/resizing
+  - [ ] Set up alt text input
+  - [ ] Add image metadata storage
+
+### 7. Frontend Development
+- [ ] **7.1** Create layout components
+  - [ ] Main layout with header and footer
+    - [ ] Implement responsive header with navigation
+    - [ ] Create site logo and branding elements
+    - [ ] Add mobile navigation (hamburger menu)
+    - [ ] Implement footer with site sections and links
+    - [ ] Add copyright and legal information
+  - [ ] Article layout
+    - [ ] Design article header with metadata
+    - [ ] Create responsive content container
+    - [ ] Style typography for readability
+    - [ ] Add author information section
+    - [ ] Implement sharing and interaction elements
+  - [ ] Video layout
+    - [ ] Create video player container
+    - [ ] Implement responsive embed handling
+    - [ ] Add video metadata display
+    - [ ] Create related videos section
+    - [ ] Implement video navigation controls
+  - [ ] Movie layout
+    - [ ] Design movie hero section with poster
+    - [ ] Create info section with metadata
+    - [ ] Add cast and crew display
+    - [ ] Implement trailer/video embed
+    - [ ] Create review and rating section
+- [ ] **7.2** Develop homepage
+  - [ ] Featured content section
+    - [ ] Create featured content carousel/slider
+    - [ ] Implement responsive image handling
+    - [ ] Add title and description overlays
+    - [ ] Create navigation controls
+  - [ ] Recent articles section
+    - [ ] Design article card components
+    - [ ] Implement grid/list layout
+    - [ ] Add pagination or "load more" functionality
+    - [ ] Create section header with navigation
+  - [ ] Popular videos/movies section
+    - [ ] Design video/movie thumbnail cards
+    - [ ] Implement horizontal scrolling on mobile
+    - [ ] Add play indicators and duration
+    - [ ] Create section navigation
+- [ ] **7.3** Implement article listing page
+  - [ ] Design article list layout (grid/list toggle)
+  - [ ] Implement filter components
+    - [ ] Create category filter
+    - [ ] Add date range filter
+    - [ ] Implement tag filtering
+  - [ ] Add sorting controls
+    - [ ] Sort by date (newest/oldest)
+    - [ ] Sort by popularity
+    - [ ] Sort alphabetically
+  - [ ] Create pagination component
+    - [ ] Implement page number navigation
+    - [ ] Add first/last page jumps
+    - [ ] Create "load more" alternative
+  - [ ] Add list/grid view toggle
+- [ ] **7.4** Implement article detail page
+  - [ ] Design article header with metadata
+    - [ ] Display title, date, author
+    - [ ] Show reading time estimate
+    - [ ] Add category/tag display
+  - [ ] Implement content rendering
+    - [ ] Set up markdown rendering
+    - [ ] Style code blocks and syntax highlighting
+    - [ ] Handle embedded content (images, videos)
+    - [ ] Implement responsive tables
+  - [ ] Create author information section
+    - [ ] Display author avatar and name
+    - [ ] Show author bio
+    - [ ] Add links to author page and social profiles
+  - [ ] Implement related articles section
+    - [ ] Display 3-4 related articles by tag/category
+    - [ ] Create responsive card design
+  - [ ] Add social sharing buttons
+    - [ ] Support Twitter, Facebook, LinkedIn sharing
+    - [ ] Add copy link functionality
+    - [ ] Implement share counts if desired
+- [ ] **7.5** Implement video listing and detail pages
+  - [ ] Create video grid layout
+  - [ ] Implement video filtering and sorting
+  - [ ] Design video detail page
+    - [ ] Create responsive video player
+    - [ ] Add video metadata display
+    - [ ] Implement related videos section
+  - [ ] Add video sharing functionality
+- [ ] **7.6** Implement movie listing and detail pages
+  - [ ] Create movie grid with filtering
+  - [ ] Design movie detail page layout
+    - [ ] Create movie header with poster
+    - [ ] Add movie metadata section
+    - [ ] Implement cast and crew display
+    - [ ] Create trailer/video embed
+  - [ ] Add user rating/review section if applicable
+- [ ] **7.7** Create tag/category pages
+  - [ ] Design tag archive page
+  - [ ] Implement category archive page
+  - [ ] Create filtering within taxonomies
+  - [ ] Add breadcrumb navigation
+- [ ] **7.8** Add static search implementation
+  - [ ] Create search index generation script
+  - [ ] Implement client-side search functionality
+  - [ ] Create search results page
+    - [ ] Display results with highlighting
+    - [ ] Add filtering by content type
+    - [ ] Implement sorting options
+  - [ ] Add "no results" handling
+  - [ ] Create search suggestions
+
+### 8. SEO Optimization
+- [ ] **8.1** Configure metadata for all pages
+  - [ ] Create base metadata in layout.tsx
+    - [ ] Add default title and description
+    - [ ] Set favicon and app icons
+    - [ ] Configure viewport settings
+  - [ ] Create dynamic metadata for article/video/movie pages
+    - [ ] Generate unique titles based on content
+    - [ ] Create dynamic descriptions from content
+    - [ ] Add keyword metadata based on tags
+  - [ ] Implement Open Graph tags
+    - [ ] Configure og:title, og:description
+    - [ ] Add og:image with proper dimensions
+    - [ ] Set og:type appropriately for content
+    - [ ] Add og:url with canonical URL
+  - [ ] Configure Twitter card metadata
+    - [ ] Set twitter:card type
+    - [ ] Add twitter:title and twitter:description
+    - [ ] Configure twitter:image
+    - [ ] Add twitter:creator if applicable
+- [ ] **8.2** Generate dynamic sitemap.xml
+  - [ ] Create `/app/sitemap.ts`
+    - [ ] Add static routes
+    - [ ] Dynamically fetch all articles
+    - [ ] Include video and movie pages
+    - [ ] Add tag and category pages
+  - [ ] Configure proper changefreq and priority
+  - [ ] Add lastmod dates based on content updates
+  - [ ] Test sitemap validity
+- [ ] **8.3** Create robots.txt
+  - [ ] Create `/app/robots.ts`
+  - [ ] Configure proper User-agent rules
+  - [ ] Add sitemap URL reference
+  - [ ] Block admin/CMS routes
+  - [ ] Set appropriate crawl directives
+- [ ] **8.4** Implement JSON-LD structured data
+  - [ ] Article schema
+    - [ ] Add headline, datePublished, author
+    - [ ] Include publisher information
+    - [ ] Add mainEntityOfPage and image
+  - [ ] Video schema
+    - [ ] Include name, description, thumbnailUrl
+    - [ ] Add uploadDate and duration
+    - [ ] Set embedUrl for videos
+  - [ ] BreadcrumbList schema
+    - [ ] Create dynamic breadcrumb generation
+    - [ ] Ensure proper position properties
+    - [ ] Link each item appropriately
+  - [ ] Test all schemas with Google Structured Data Testing Tool
+- [ ] **8.5** Optimize Core Web Vitals
+  - [ ] Improve LCP (Largest Contentful Paint)
+    - [ ] Optimize critical rendering path
+    - [ ] Implement proper image loading
+    - [ ] Reduce render-blocking resources
+    - [ ] Use image preloading for hero images
+  - [ ] Optimize CLS (Cumulative Layout Shift)
+    - [ ] Set explicit dimensions for images
+    - [ ] Reserve space for dynamic content
+    - [ ] Avoid late-loading DOM elements
+    - [ ] Stabilize font loading
+  - [ ] Minimize FID (First Input Delay)
+    - [ ] Reduce JavaScript execution time
+    - [ ] Break up long tasks
+    - [ ] Optimize event handlers
+    - [ ] Implement code splitting for heavy components
+
+### 9. Cloudflare Integration
+- [ ] **9.1** Set up Cloudflare Pages project
+  - [ ] Create Cloudflare account if needed
+  - [ ] Connect to GitHub repository
+    - [ ] Configure GitHub access
+    - [ ] Set up webhook for updates
+  - [ ] Configure build settings
+    - [ ] Set build command for intelligent builds
+    - [ ] Configure output directory
+    - [ ] Set up environment variables
+  - [ ] Configure preview deployments for PRs
+- [ ] **9.2** Set up custom domain (if applicable)
+  - [ ] Add domain in Cloudflare Pages
+  - [ ] Configure DNS settings
+  - [ ] Set up SSL certificate
+  - [ ] Implement redirects if needed
+  - [ ] Test domain configuration
+
+### 10. Analytics & Ads Integration
+- [ ] **10.1** Implement Google Analytics
+  - [ ] Create Google Analytics 4 property
+  - [ ] Create Analytics component
+    - [ ] Add GA4 initialization code
+    - [ ] Implement with Script component
+    - [ ] Add consent management if needed
+  - [ ] Configure events tracking
+    - [ ] Set up page view tracking
+    - [ ] Add custom events for key interactions
+    - [ ] Implement ecommerce events if applicable
+    - [ ] Create conversion goals
+  - [ ] Test analytics implementation
+- [ ] **10.2** Add Microsoft Clarity for heatmaps
+  - [ ] Set up Clarity project
+  - [ ] Implement tracking code
+  - [ ] Configure privacy settings
+  - [ ] Set up dashboards and reports
+  - [ ] Test recording functionality
+- [ ] **10.3** Implement Google AdSense
+  - [ ] Create AdSense account if needed
+  - [ ] Create ad placement components
+    - [ ] Implement in-content ad component
+    - [ ] Create sidebar ad component
+    - [ ] Add header/footer ad placements
+  - [ ] Configure responsive ad units
+    - [ ] Implement responsive sizing
+    - [ ] Set up ad load events
+    - [ ] Handle ad blockers gracefully
+  - [ ] Test ad displays across devices
+- [ ] **10.4** Set up conversion tracking
+  - [ ] Define key conversion events
+  - [ ] Implement conversion tracking code
+  - [ ] Create conversion goals in Analytics
+  - [ ] Set up conversion reporting
+  - [ ] Test conversion tracking
+
+### 11. Security Implementation
+- [ ] **11.1** Configure HTTPS and security headers
+  - [ ] Set up HTTPS redirect
+  - [ ] Implement Content-Security-Policy
+  - [ ] Add X-Content-Type-Options header
+  - [ ] Configure Referrer-Policy
+  - [ ] Add Permissions-Policy header
+- [ ] **11.2** Implement authentication protection
+  - [ ] Secure CMS access routes
+  - [ ] Add authentication middleware
+  - [ ] Implement rate limiting for auth attempts
+  - [ ] Set up secure session handling
+- [ ] **11.3** Add API security measures
+  - [ ] Implement API rate limiting
+  - [ ] Add request validation
+  - [ ] Set up proper CORS configuration
+  - [ ] Create API authentication for protected endpoints
+- [ ] **11.4** Configure content backup strategy
+  - [ ] Set up automated GitHub content backups
+  - [ ] Create R2 media backup workflow
+  - [ ] Document restoration procedures
+  - [ ] Test recovery process
+
+### 12. Testing & Quality Assurance
+- [ ] **12.1** Implement unit tests for key components
+  - [ ] Set up Jest for testing
+  - [ ] Create component tests with React Testing Library
+  - [ ] Implement API route tests
+  - [ ] Add utility function tests
+  - [ ] Configure test coverage reporting
+- [ ] **12.2** Add end-to-end testing with Playwright
+  - [ ] Install and configure Playwright
+  - [ ] Create basic navigation tests
+  - [ ] Implement form submission tests
+  - [ ] Add authentication flow tests
+  - [ ] Test responsive layouts
+- [ ] **12.3** Test SEO performance
+  - [ ] Validate structured data
+    - [ ] Test with Google Structured Data Testing Tool
+    - [ ] Fix any schema errors
+  - [ ] Check meta tags
+    - [ ] Verify title and description formats
+    - [ ] Test Open Graph and Twitter cards
+  - [ ] Test Core Web Vitals
+    - [ ] Run Lighthouse audits
+    - [ ] Use PageSpeed Insights
+    - [ ] Fix performance issues
+  - [ ] Verify accessibility compliance
+- [ ] **12.4** Test responsive design on various devices
+  - [ ] Test on mobile devices (iOS, Android)
+  - [ ] Check tablet layouts
+  - [ ] Verify desktop experience
+  - [ ] Test on different browsers
+  - [ ] Fix any responsive issues
+- [ ] **12.5** Validate accessibility (WCAG compliance)
+  - [ ] Run automated a11y tests
+  - [ ] Check color contrast
+  - [ ] Verify keyboard navigation
+  - [ ] Test screen reader compatibility
+  - [ ] Fix accessibility issues
+
+### 13. Deployment & Launch
+- [ ] **13.1** Set up CI/CD pipeline
+  - [ ] Configure GitHub Actions for testing
+    - [ ] Set up linting and type checking
+    - [ ] Add unit test runs
+    - [ ] Implement build verification
+  - [ ] Automatic deployment to Cloudflare Pages
+    - [ ] Configure production branch deployment
+    - [ ] Set up preview deployments for PRs
+    - [ ] Add deployment notifications
+  - [ ] Create deployment documentation
+- [ ] **13.2** Configure production environment variables
+  - [ ] Set up production environment in Cloudflare
+  - [ ] Configure analytics keys
+  - [ ] Set production API endpoints
+  - [ ] Document environment variables
+- [ ] **13.3** Perform final testing in production environment
+  - [ ] Run Lighthouse audit on production
+  - [ ] Test all key user flows
+  - [ ] Verify analytics tracking
+  - [ ] Check SEO elements
+  - [ ] Test performance on various connections
+- [ ] **13.4** Create launch checklist
+  - [ ] Verify all pages and functionality
+  - [ ] Check for broken links
+  - [ ] Validate forms and user flows
+  - [ ] Verify analytics is capturing data
+  - [ ] Ensure security measures are in place
+- [ ] **13.5** Official launch
+  - [ ] Final verification of production site
+  - [ ] Announce launch through channels
+  - [ ] Monitor analytics and performance
+  - [ ] Address any post-launch issues
+  - [ ] Document known issues and roadmap
+
+### 14. Post-Launch Maintenance
+- [ ] **14.1** Set up monitoring and alerting
+  - [ ] Configure uptime monitoring
+  - [ ] Set up error tracking and alerting
+  - [ ] Implement performance monitoring
+  - [ ] Create incident response plan
+- [ ] **14.2** Plan regular content updates
+  - [ ] Create content calendar
+  - [ ] Schedule regular content reviews
+  - [ ] Plan feature content for key dates
+  - [ ] Document content update procedures
+- [ ] **14.3** Establish repository maintenance strategy
+  - [ ] Schedule regular dependency reviews
+  - [ ] Configure automated security updates
+  - [ ] Plan major version migrations
+  - [ ] Document update procedures
+  - [ ] Create content archiving schedule
+- [ ] **14.4** Plan future feature development
+  - [ ] Create feature backlog
+  - [ ] Prioritize enhancement requests
+  - [ ] Plan version releases
+  - [ ] Document feature roadmap
+
+## Dependencies
+- Next.js 14 setup must be completed before Outstatic integration
+- R2 setup should be completed before implementing image optimization
+- Content models must be defined before setting up content organization structure
+- Intelligent build system should be configured before extensive content creation
+- SEO components should be implemented alongside frontend development
+- Testing should occur continuously throughout development
+
+## Notes
+- We will use a branching strategy with feature branches and PRs
+- Regular milestones reviews will be conducted
+- Task priorities may be adjusted as the project progresses 
+- Security should be considered at every stage of development
+- Performance optimization is an ongoing process, not just a final step
+- Intelligent build strategies are critical for managing large content volume efficiently 
